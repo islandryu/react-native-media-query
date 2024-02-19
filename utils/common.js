@@ -4,12 +4,12 @@ const isMediaOrPseudo = (query) =>  isMedia(query) || isPseudo(query)
 
 const deepClone = (obj) => JSON.parse(JSON.stringify(obj));
 
-const createCssRule = (query, stringHash, css) => {
+const createCssRule = (query, stringHash, css, pseudo = "") => {
     let rule;
     const dataMediaSelector = `[data-media~="${stringHash}"]`;
 
       if (isMedia(query)) {
-        rule = `${query} {${dataMediaSelector} ${css}}`;
+        rule = `${query} {${dataMediaSelector}${pseudo} ${css}}`;
       } else {
         rule = `${dataMediaSelector}${query} ${css}`;
       }
