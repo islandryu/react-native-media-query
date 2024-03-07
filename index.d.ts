@@ -49,7 +49,7 @@ export declare function create<
 ): {
   fullStyles: UserStyles;
   ids: Record<keyof UserStyles, string>;
-  styles: ComputedStyle<UserStyles>;
+  styles: NamedStyles<UserStyles>;
 };
 
 export declare function process<
