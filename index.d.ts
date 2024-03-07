@@ -49,7 +49,9 @@ export declare function create<
 ): {
   fullStyles: UserStyles;
   ids: Record<keyof UserStyles, string>;
-  styles: NamedStyles<UserStyles>;
+  styles: {
+    [P in keyof UserStyles]: any;
+  } 
 };
 
 export declare function process<
