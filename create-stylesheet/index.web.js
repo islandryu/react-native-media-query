@@ -30,9 +30,9 @@ const splitPseudoOrStyle = (style) => {
   return { pseudo, styles: styleObj };
 }
 
-const addSingleCss = ( query, style) => {
+const addSingleCss = ( query, style, pseudo = {}) => {
   const css = createDeclarationBlock(style);
-  const stringHash = `rnmq-${hash(`${query}${css}`)}`;
+  const stringHash = `rnmq-${hash(`${query}${css}${JSON.stringify(pseudo)}`)}`;
   const rule = createCssRule(query, stringHash, css);
   addCss(`${stringHash}`, rule);
   return {  stringHash };
@@ -56,7 +56,7 @@ const createStyleSheet = (stylesWithQuery) => {
     const { media, styles } = splitMediaOrStyle(value);
     Object.entries(media).map(([query, style]) => {
       const { pseudo, styles } = splitPseudoOrStyle(style);
-      const {stringHash} = addSingleCss( query, styles);
+      const {stringHash} = addSingleCss( query, styles, pseudo);
       pseudo && Object.entries(pseudo).map(([pseudoKey, pseudoStyle]) => {
         const {stringHash: pseudoStringHash} = addPseudoCss(stringHash, query, pseudoKey, pseudoStyle);
         // console.log('pseudoStringHash', `${query}${pseudoKey}`);
